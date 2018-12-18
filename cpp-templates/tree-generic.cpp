@@ -9,11 +9,6 @@ Tree_node<TREE_ELEMENT>::tnode_get_data()
     return data;
 }
 
-/**
- * 
- * tnode_set_right(Tree_node<TREE_ELEMENT> *right_child);
-    TREE_ELEMENT tnode_set_left(Tree_node<TREE_ELEMENT> *left_child);
- */
 template <typename TREE_ELEMENT>
 void
 Tree_node<TREE_ELEMENT>::tnode_set_right(Tree_node<TREE_ELEMENT> *right_child)
@@ -42,16 +37,16 @@ Tree<TREE_TYPE>::tree_get_insert_pos(Tree_node<TREE_TYPE> *root)
     {
         Tree_node<TREE_TYPE> *temp = traversal_queue.front();
         traversal_queue.pop();
-        if(!temp->left) {
+        if(!temp->get_left()) {
             return temp;
         }
         else
-            traversal_queue.push(temp->left);
-        if(!temp->right) {
+            traversal_queue.push(temp->get_left());
+        if(!temp->get_right()) {
             return temp;
         }
         else
-            traversal_queue.push(temp->right);
+            traversal_queue.push(temp->get_right());
     }
     return nullptr;
 }
@@ -68,9 +63,9 @@ Tree<TREE_TYPE>::tree_insert_node(TREE_TYPE node)
         if(!insert_at) {
             std::cout<<"insertion failed";
         }
-        if(!insert_at->left)
+        if(!insert_at->get_left())
             insert_at->tnode_set_left(new_node);
-        else if(!insert_at->right)
+        else if(!insert_at->get_right())
             insert_at->tnode_set_right(new_node);
     }        
 }
@@ -84,14 +79,14 @@ Tree<TREE_TYPE>::print_tree()
     while(!traversal_queue.empty())
     {
         Tree_node<TREE_TYPE> *temp = traversal_queue.front();
-        std::cout<<temp->tnode_get_data(); //TREE_ELEMENT should have << defined
+        std::cout<<temp->tnode_get_data()<<std::endl; //TREE_ELEMENT should have << defined
         traversal_queue.pop();
-        if(temp->left) {
-            traversal_queue.push(temp->left); 
+        if(temp->get_left()) {
+            traversal_queue.push(temp->get_left()); 
         }
 
-        if(temp->right) {
-            traversal_queue.push(temp->right);
+        if(temp->get_right()) {
+            traversal_queue.push(temp->get_right());
         }
     }
 }
@@ -110,11 +105,11 @@ Tree<TREE_TYPE>::search_tree(TREE_TYPE node_to_find)
             return;
         }
         traversal_queue.pop();
-        if(temp->left) {
-            traversal_queue.push(temp->left); 
+        if(temp->get_left()) {
+            traversal_queue.push(temp->get_left()); 
         }
-        if(temp->right) {
-            traversal_queue.push(temp->right);
+        if(temp->get_right()) {
+            traversal_queue.push(temp->get_right());
         }
     }
     cout<<node_to_find<<"NOT Found";

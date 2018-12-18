@@ -22,7 +22,7 @@ public class GenericTree{
         //test float
         Tree<Float> myFloatTree = new Tree<>();
         float floatToSearch;
-        System.out.println("Enter the number of input");
+        System.out.println("FLOAT\n Enter the number of input");
         count = sc.nextInt();
         while(count > 0)
         {
